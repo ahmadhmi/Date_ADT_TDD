@@ -13,6 +13,14 @@ package org.example;
 * */
 public interface DateADT {
 
+    /*
+    *
+    * Mutator method to modify and set the value of the date.
+    *
+    *
+    *
+    *
+    * */
     public void setDate(int y, int m, int d) throws InvalidDateException;
     public int compareDate(DateADT date);
     public String toISOFormat();

@@ -4,24 +4,32 @@ import java.util.HashMap;
 
 public class DateCompleted implements DateADT{
 
-
-    public HashMap<Integer, Integer> Monthmap = new HashMap<>();
-
+    
     private int year;
 
     private int month;
     private int day;
 
-
     private int totalDays = 0 ;
 
     public HashMap<Integer, Integer> daysInMonths = new HashMap<>();
 
-
     public DateCompleted(int y, int m, int d) throws InvalidDateException {
         populateMap();
         setDate(y,m,d);
-        totalDays = getTotalDays();
+        totalDays = setTotalDays();
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
     }
 
 
@@ -82,13 +90,31 @@ public class DateCompleted implements DateADT{
         }
     }
 
+    @Override
+    public String retreat(int days) {
+        try{
+            int newTotalDays = this.totalDays - days;
+            if (newTotalDays < 0)
+                throw new InvalidDateException("The date can not be prior to the beginning of the world!!!");
+            DateCompleted newInstance = daysToDate(newTotalDays);
+            return newInstance.toISOFormat();
+
+        }catch (InvalidDateException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
     private DateCompleted daysToDate(int totalDays) throws InvalidDateException {
         int y = 1;
         int m = 1;
         int d = 1;
         while(true){
             int daysInYear = isLeapYear(y) ? 366 : 365;
-            if (totalDays >= daysInYear){
+            if (totalDays > daysInYear){
                 totalDays -= daysInYear;
                 y++;
             }
@@ -115,22 +141,7 @@ public class DateCompleted implements DateADT{
         return new DateCompleted(y,m,d);
     }
 
-    @Override
-    public String retreat(int days) {
-        try{
-            int newTotalDays = this.totalDays - days;
-            if (newTotalDays < 0)
-                throw new InvalidDateException("The date can not be prior to the beginning of the world!!!");
-            DateCompleted newInstance = daysToDate(newTotalDays);
-            return newInstance.toISOFormat();
-
-        }catch (InvalidDateException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    public int getTotalDays(){
+    private int setTotalDays(){
         for (int i = 1 ; i < year; i++){
             if (isLeapYear(i))
                 totalDays += 366;
@@ -149,6 +160,9 @@ public class DateCompleted implements DateADT{
             totalDays += daysInMonths.get(i);
         }
         totalDays += day;
+        return totalDays;
+    }
+    public int getTotalDays(){
         return totalDays;
     }
 

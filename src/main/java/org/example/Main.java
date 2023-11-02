@@ -5,25 +5,55 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws InvalidDateException {
 
-        DateCompleted test = new DateCompleted(1,12,31);
-        //            test.setDate(2023, 10, 27);
-//            System.out.println(test.toISOFormat());
-//            test.advance(2);
-//            System.out.println(test.toISOFormat());
-//            test.retreat(2);
-//            System.out.println(test.toISOFormat());
-//            DateCompleted date2 = new DateCompleted();
-//            date2.setDate(2023, 10, 29);
-//            System.out.println(test.compareDate(date2));
-//
-//            Scanner scanner = new Scanner(System.in);
-//            String dayInput = scanner.next();
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please enter a day: ");
+        String input = scanner.next();
 
-//        DateCompleted date2 = new DateCompleted(4,4,5);
-//        System.out.println(test.getTotalDays());
-//        System.out.println(test.compareDate(date2));
+        int year = 2010;
+        int month = 1;
+        int day;
 
-        System.out.println(test.advance(1));
+        switch (input.toLowerCase()){
+            case "friday":
+                day = 1;
+                break;
+            case "saturday":
+                day = 2;
+                break;
+            case "sunday":
+                day = 3;
+                break;
+            case "monday":
+                day = 4;
+                break;
+            case "tuesday":
+                day = 5;
+                break;
+            case "wednesday":
+                day = 6;
+                break;
+            case "thursday":
+                day = 7;
+                break;
+            default:
+                throw new InvalidDateException();
+        }
+
+        DateCompleted date  = new DateCompleted(year,month,day);
+
+        int y = 2010;
+        int counter = 0;
+
+        while(y < 2011){
+            String newDate = date.advance(counter);
+
+            String[] token = newDate.split("-");
+            y = Integer.parseInt(token[0]);
+            if (y > 2010)
+                break;
+            counter += 7;
+            System.out.println(newDate + " " + input.toUpperCase());
+        }
     }
 }
