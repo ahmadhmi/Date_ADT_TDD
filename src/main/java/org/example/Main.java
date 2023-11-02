@@ -2,10 +2,18 @@ package org.example;
 
 import java.util.Scanner;
 
+/**
+ * Main.java
+ *
+ * @author Ahmad Heshmati , Syed Jawad Raza Baquar
+ * @version 1.0
+ *
+ * Class Definition: Main class to get the input from the user and run our program
+ */
 public class Main {
     public static void main(String[] args) throws InvalidDateException {
 
-
+        //Getting the input from the user
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter a day: ");
         String input = scanner.next();
@@ -14,6 +22,7 @@ public class Main {
         int month = 1;
         int day;
 
+        // Map the user input to corresponding day number
         switch (input.toLowerCase()){
             case "friday":
                 day = 1;
@@ -40,11 +49,13 @@ public class Main {
                 throw new InvalidDateException();
         }
 
+        // Initializing the date object based on the user input
         DateCompleted date  = new DateCompleted(year,month,day);
 
         int y = 2010;
         int counter = 0;
 
+        // Printing every single date in 2010 which has the same day as the user entered
         while(y < 2011){
             String newDate = date.advance(counter);
 

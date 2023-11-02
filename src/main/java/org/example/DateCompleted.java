@@ -2,37 +2,92 @@ package org.example;
 
 import java.util.HashMap;
 
+/**
+ * DateCompleted.java
+ *
+ * @author Ahmad Heshmati , Syed Jawad Raza Baquar
+ * @version 1.0
+ *
+ * Class Definition: DateCompleted class is the implementation of the DateADT interface.
+ * It was needed to create some additional methods in order to efficiently implement all the methods of the DateADT interface.
+ */
 public class DateCompleted implements DateADT{
 
-    
+    // Fields
     private int year;
-
     private int month;
     private int day;
 
+    // Attributes
     private int totalDays = 0 ;
-
     public HashMap<Integer, Integer> daysInMonths = new HashMap<>();
 
+    /**
+     * Constructor as a mutator method to initialize the DateCompleted objects
+     *
+     * Precondition: Input year, month and days values are valid
+     *
+     * Postcondition:  DateCompleted object is initialized with the specified year, month and day values.
+     *
+     * @param y The year
+     * @param m The month
+     * @param d The day
+     *
+     * @throws InvalidDateException if the input year, month and day values are not valid
+     */
     public DateCompleted(int y, int m, int d) throws InvalidDateException {
         populateMap();
         setDate(y,m,d);
         totalDays = setTotalDays();
     }
 
+    /**
+     * Accessor method to return the year value
+     *
+     * Precondition: A valid date object exists
+     *
+     * Postcondition: The current year value of the date object
+     *
+     * @return The current year value as an integer
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * Accessor method to return the month value
+     *
+     * Precondition: A valid date object exists
+     *
+     * Postcondition: The current month value of the date object
+     *
+     * @return The current month value as an integer
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * Accessor method to return the day value
+     *
+     * Precondition: A valid date object exists
+     *
+     * Postcondition: The current day value of the date object
+     *
+     * @return The current day value as an integer
+     */
     public int getDay() {
         return day;
     }
 
 
+    /**
+     * Mutator method to populate the hash map with days value for each month
+     *
+     * Precondition: none
+     *
+     * Postcondition: The populated hash map
+     */
     private void populateMap(){
         daysInMonths.put(1,31);
         daysInMonths.put(2,28);
@@ -106,8 +161,19 @@ public class DateCompleted implements DateADT{
     }
 
 
-
-
+    /**
+     * Transformer method to convert the total number of days into a valid date object
+     *
+     * Precondition: none
+     *
+     * Postcondition: The date object for the total number of days
+     *
+     * @param totalDays The total number of days
+     *
+     * @throws InvalidDateException If there is an error in creating the date object from the total number of days
+     *
+     * @return The date object
+     */
     private DateCompleted daysToDate(int totalDays) throws InvalidDateException {
         int y = 1;
         int m = 1;
@@ -141,6 +207,15 @@ public class DateCompleted implements DateADT{
         return new DateCompleted(y,m,d);
     }
 
+    /**
+     * Transformer method to convert a given date into total number of days
+     *
+     * Precondition: Input year, month and days values are valid
+     *
+     * Postcondition: Total number of days for a given date
+     *
+     * @return Total number of days for a given date as an Integer value
+     */
     private int setTotalDays(){
         for (int i = 1 ; i < year; i++){
             if (isLeapYear(i))
@@ -162,10 +237,31 @@ public class DateCompleted implements DateADT{
         totalDays += day;
         return totalDays;
     }
+
+    /**
+     * Accessor method to return the  total number of days
+     *
+     * Precondition: total number of days value exists
+     *
+     * Postcondition: The value of the total number of days
+     *
+     * @return The total number of days value as an integer
+     */
     public int getTotalDays(){
         return totalDays;
     }
 
+    /**
+     * Transformer method to check if a given year is a leap year or not
+     *
+     * Precondition: A valid date object exists
+     *
+     * Postcondition: Whether a given year is a leap year or not
+     *
+     * @param year The year
+     *
+     * @return Whether a given year is a leap year or not as a boolean value
+     */
     private boolean isLeapYear(int year){
         if (year % 4 == 0){
             if (year % 100 == 0){
